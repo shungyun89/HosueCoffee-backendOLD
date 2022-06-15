@@ -12,7 +12,7 @@ module.exports = class GetPayment {
     let base_param = {
       MerchantTradeNo: uid, //請帶20碼uid, ex: f0a0d7e9fae1bb72bc93
       MerchantTradeDate: onTimeValue(), //ex: 2017/02/13 15:45:30
-      TotalAmount: total,
+      TotalAmount: totalPrice,
       TradeDesc: '測試交易描述',
       ItemName: 'HouseCoffe網路購物',
       ReturnURL: 'https://team3-housecoffee-backend.herokuapp.com/payment',
@@ -58,9 +58,9 @@ module.exports = class GetPayment {
 const randomValue = function (min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
-const total = fetch('https://team3-hosue-coffee-frontend-gusxwdshd-shungyun89.vercel.app/OnlineCheckPage2',{method:'GET'}).then(res => {
-  const total = res.text();  // 使用 text() 可以得到純文字 String
-})
+// const total = fetch('https://team3-hosue-coffee-frontend-gusxwdshd-shungyun89.vercel.app/OnlineCheckPage2',{method:'GET'}).then(res => {
+//   const total = res.text();  // 使用 text() 可以得到純文字 String
+// })
 
 
 //example: 2017/08/09 20:34:02
