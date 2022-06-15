@@ -15,9 +15,9 @@ module.exports = class GetPayment {
       TotalAmount: totalPrice,
       TradeDesc: '測試交易描述',
       ItemName: 'HouseCoffe網路購物',
-      ReturnURL: 'https://team3-housecoffee-backend.herokuapp.com/payment',
+      ReturnURL: 'https://team3-housecoffee-backend.herokuapp.com',
       // ChooseSubPayment: '',
-      OrderResultURL: 'https://team3-housecoffee-backend.herokuapp.com/payment/paymentactionresult',
+      OrderResultURL: 'https://team3-housecoffee-backend.herokuapp.com/payment',
       // NeedExtraPaidInfo: '1',
       // ClientBackURL: 'https://www.google.com',
       // ItemURL: 'http://item.test.tw',
@@ -34,11 +34,10 @@ module.exports = class GetPayment {
 
     try {
       const ecpay_payment = require('ecpay_aio_nodejs/lib/ecpay_payment')
-      const options = require('ecpay_aio_nodejs/conf/config-example'),
-      create = new ecpay_payment(options);
-      let htm = create.payment_client.aio_check_out_credit_onetime(parameters = base_param);
-      res.send(htm)
-      
+      const options = require('../conf/config-example'),
+  create = new ecpay_payment(options),
+  htm = create.payment_client.aio_check_out_all(parameters = base_param, invoice = inv_params)
+console.log(htm)
     } catch (err) {
       // console.log(err);
       let error = {
