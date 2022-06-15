@@ -1,23 +1,23 @@
 module.exports = class GetPayment {
 
-  payUid(req, res) {
-    let uid = randomValue(10, 99) + "1234567890234567" + randomValue(10, 99);
-    res.render('payment', { uid: uid  });
-  }
+//   payUid(req, res) {
+//     let uid = randomValue(10, 99) + "1234567890234567" + randomValue(10, 99);
+//     res.render('payment', { uid: uid  });
+//   }
   
   payAction(req,res,next){
     const uid = req.query.uid;
     const totalPrice = req.query.totalPrice;
 
     let base_param = {
-      MerchantTradeNo: uid, //請帶20碼uid, ex: f0a0d7e9fae1bb72bc93
-      MerchantTradeDate: onTimeValue(), //ex: 2017/02/13 15:45:30
+      MerchantTradeNo: f0a0d7e9fae1bb72bc93, //請帶20碼uid, ex: f0a0d7e9fae1bb72bc93
+      MerchantTradeDate: '2017/02/13 15:45:30', //ex: 2017/02/13 15:45:30
       TotalAmount: totalPrice,
       TradeDesc: '測試交易描述',
       ItemName: 'HouseCoffe網路購物',
-      ReturnURL: 'https://team3-housecoffee-backend.herokuapp.com',
+      ReturnURL: 'https://team3-housecoffee-backend.herokuapp.com/payment',
       // ChooseSubPayment: '',
-      OrderResultURL: 'https://team3-housecoffee-backend.herokuapp.com/payment',
+      OrderResultURL: 'https://team3-housecoffee-backend.herokuapp.com/payment/paymentactionresult',
       // NeedExtraPaidInfo: '1',
       // ClientBackURL: 'https://www.google.com',
       // ItemURL: 'http://item.test.tw',
@@ -34,10 +34,11 @@ module.exports = class GetPayment {
 
     try {
       const ecpay_payment = require('ecpay_aio_nodejs/lib/ecpay_payment')
-      const options = require('../conf/config-example'),
-  create = new ecpay_payment(options),
-  htm = create.payment_client.aio_check_out_all(parameters = base_param, invoice = inv_params)
-console.log(htm)
+      const options = require('ecpay_aio_nodejs/conf/config-example'),
+      create = new ecpay_payment(options);
+      let htm = create.payment_client.aio_check_out_credit_onetime(parameters = base_param);
+      res.send(htm)
+      
     } catch (err) {
       // console.log(err);
       let error = {
