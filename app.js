@@ -10,11 +10,12 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const categoriesRouter = require('./routes/categories');
 const productsRouter = require('./routes/products');
-
+const homeRouter = require('./routes/home');
 const storeRouter = require('./routes/store');
 
+const shoporderRouter = require('./routes/shoporder');
 const shopRouter = require('./routes/shop');
-const homeRouter = require('./routes/home');
+const blogRouter = require('./routes/blog');
 
 
 
@@ -52,10 +53,20 @@ app.use('/account',accountRouter);
 app.use(`/profile`,profileRouter);
 app.use(`/morder`,mODRouter);
 
+app.use(`/morder`,mODRouter);
+
+app.use(`/home`,homeRouter);
+
+//http://localhost:3001/blog
+app.use('/blog',blogRouter);
+
+
 app.use('/menu',menuRouter);
 app.use('/home',homeRouter);
 
 
+//http://localhost:3001/shoporder
+app.use('/shoporder',shoporderRouter);
 
 //http://localhost:3001/shop
 app.use('/shop',shopRouter);

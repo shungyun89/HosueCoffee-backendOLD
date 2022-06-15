@@ -2,10 +2,10 @@ require('dotenv').config();
 const mysql = require('mysql2');
 
 const pool = mysql.createPool({
-    host:process.env.MYSQL_HOST,
-    user:process.env.MYSQL_USER,
-    password:process.env.MYSQL_PASSWORD,
-    database:process.env.MYSQL_DB,
+    host:'us-cdbr-east-05.cleardb.net',
+    user:'b37da2c89588da',
+    password:'16433f56',
+    database:'heroku_e1572fbcdfa25eb',
     connectionLimit:10,
     waitForConnections:true,
     dateStrings: true
