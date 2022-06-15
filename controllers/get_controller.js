@@ -7,7 +7,7 @@ module.exports = class GetPayment {
   
   payAction(req,res,next){
     const uid = req.query.uid;
-    const totalPrice = Number(fetchData);
+    // const totalPrice = Number(fetchData);
 
     let base_param = {
       MerchantTradeNo: uid, //請帶20碼uid, ex: f0a0d7e9fae1bb72bc93
