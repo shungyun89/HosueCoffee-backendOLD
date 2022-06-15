@@ -1,16 +1,16 @@
 module.exports = class GetPayment {
 
-//   payUid(req, res) {
-//     let uid = randomValue(10, 99) + "1234567890234567" + randomValue(10, 99);
-//     res.render('payment', { uid: uid  });
-//   }
+  payUid(req, res) {
+    let uid = randomValue(10, 99) + "1234567890234567" + randomValue(10, 99);
+    res.render('payment', { uid: uid  });
+  }
   
   payAction(req,res,next){
     // const uid = req.query.uid;
     // const totalPrice = Number(fetchData);
 
     let base_param = {
-      MerchantTradeNo: f0a0d7e9fae1bb72bc93, //請帶20碼uid, ex: f0a0d7e9fae1bb72bc93
+      MerchantTradeNo: payUid, //請帶20碼uid, ex: f0a0d7e9fae1bb72bc93
       MerchantTradeDate: onTimeValue(), //ex: 2017/02/13 15:45:30
       TotalAmount: '100',
       TradeDesc: '測試交易描述',
