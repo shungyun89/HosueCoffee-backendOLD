@@ -1,15 +1,23 @@
-import { get } from 'axios';
-export default class GetPayment {
+module.exports = class GetPayment {
+
+  payUid(req, res) {
+    let uid = randomValue(10, 99) + "1234567890234567" + randomValue(10, 99);
+    res.render('payment', { uid: uid  });
+  }
+
   payAction(req,res,next){
+    const uid = req.query.uid;
+    const totalPrice = req.query.totalPrice;
+
     let base_param = {
-      MerchantTradeNo: payUid(), //請帶20碼uid, ex: f0a0d7e9fae1bb72bc93
+      MerchantTradeNo: uid, //請帶20碼uid, ex: f0a0d7e9fae1bb72bc93
       MerchantTradeDate: onTimeValue(), //ex: 2017/02/13 15:45:30
-      TotalAmount: totalprice,
+      TotalAmount: totalPrice,
       TradeDesc: '測試交易描述',
       ItemName: 'HouseCoffe網路購物',
-      ReturnURL: 'https://team3-hosue-coffee-frontend-gusxwdshd-shungyun89.vercel.app/OnlineCheckPage2',
+      ReturnURL: 'https://team3-housecoffee-backend.herokuapp.com/payment',
       // ChooseSubPayment: '',
-      // OrderResultURL: 'http://192.168.0.1/payment_result',
+      OrderResultURL: 'https://team3-housecoffee-backend.herokuapp.com/payment/paymentactionresult',
       // NeedExtraPaidInfo: '1',
       // ClientBackURL: 'https://www.google.com',
       // ItemURL: 'http://item.test.tw',
@@ -23,17 +31,27 @@ export default class GetPayment {
     };
     let invoice = {};
     let parameters = {};
-    const ecpay_payment = require('../node_modules/ECPAY_Payment_node_js/lib/ecpay_payment')
-    const options = require('../node_modules/ECPAY_Payment_node_js/conf/config-example'),
-    create = new ecpay_payment(options);
-    let htm = create.payment_client.aio_check_out_credit_onetime(parameters = base_param);
-    console.log(htm)
-    res.send(htm);
-  }
-}
 
-const payUid = function () {
-  return randomValue(10, 99) + "1234567890234567" + randomValue(10, 99);
+    try {
+      const ecpay_payment = require('ecpay_aio_nodejs/lib/ecpay_payment')
+      const options = require('ecpay_aio_nodejs/conf/config-example'),
+      create = new ecpay_payment(options);
+      let htm = create.payment_client.aio_check_out_credit_onetime(parameters = base_param);
+      res.send(htm)
+      
+    } catch (err) {
+      // console.log(err);
+      let error = {
+          status: '500',
+          stack: ""
+      }
+      res.render('error', {
+          message: err,
+          error: error
+      })
+    }
+    
+  }
 }
 
 // 隨機訂單ID
@@ -49,13 +67,6 @@ const onTimeValue = function () {
   var hh = date.getHours();
   var mi = date.getMinutes();
   var ss = date.getSeconds();
-  fetch('https://team3-hosue-coffee-frontend-gusxwdshd-shungyun89.vercel.app/OnlineCheckPage2',{
-    method:'get',})
-    .then(res => {
-        const totalprice = res.text();   // 使用 text() 可以得到純文字 String
-    }).then(result => {
-        console.log(result); // 得到「你的名字是：oxxo，年紀：18 歲。」
-    });
 
   return [date.getFullYear(), "/" +
       (mm > 9 ? '' : '0') + mm, "/" +
