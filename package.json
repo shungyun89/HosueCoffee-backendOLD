@@ -10,6 +10,7 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^16.0.1",
+    "ecpay-aio-node": "^0.0.5-beta3",
     "ejs": "~2.6.1",
     "envdot": "^0.0.3",
     "express": "~4.16.1",
