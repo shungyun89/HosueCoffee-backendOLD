@@ -7,7 +7,7 @@ module.exports = class GetPayment {
   
   payAction(req,res,next){
     const uid = req.query.uid;
-    const totalPrice = req.query.totalPrice;
+    const totalPrice = Number(fetchData);
 
     let base_param = {
       MerchantTradeNo: uid, //請帶20碼uid, ex: f0a0d7e9fae1bb72bc93
@@ -58,9 +58,12 @@ module.exports = class GetPayment {
 const randomValue = function (min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
-// const total = fetch('https://team3-hosue-coffee-frontend-gusxwdshd-shungyun89.vercel.app/OnlineCheckPage2',{method:'GET'}).then(res => {
-//   const total = res.text();  // 使用 text() 可以得到純文字 String
-// })
+const fetchData = async()=>{
+    const response = await fetch('https://team3-hosue-coffee-frontend-shungyun89.vercel.app/OnlineCheckPage2',);
+    const results = await response.json();  
+    return(results)       
+}
+
 
 
 //example: 2017/08/09 20:34:02
