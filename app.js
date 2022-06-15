@@ -17,7 +17,8 @@ const shoporderRouter = require('./routes/shoporder');
 const shopRouter = require('./routes/shop');
 const blogRouter = require('./routes/blog');
 
-
+// 綠界API
+const paymentRouter = require('./routes/payment');
 
 
 const testRouter = require('./routes/member/test');
@@ -60,6 +61,8 @@ app.use(`/home`,homeRouter);
 //http://localhost:3001/blog
 app.use('/blog',blogRouter);
 
+// 綠界API
+app.use('/payment',paymentRouter);
 
 app.use('/menu',menuRouter);
 app.use('/home',homeRouter);
